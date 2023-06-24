@@ -1,6 +1,6 @@
 package com.mjv.jobbycadastrosdemo.enums;
 
-public enum Sexo {
+public enum SexoEnum {
     FEMININO,
     MASCULINO
 }
