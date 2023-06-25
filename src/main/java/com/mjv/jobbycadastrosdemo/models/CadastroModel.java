@@ -7,10 +7,11 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.rmi.server.UID;
 import java.time.LocalDate;
+import java.util.UUID;
 
-@Table(name = "cadastros", indexes = @Index(columnList = "idCadastro"))
+@Entity
+@Table(name = "cadastros", indexes = @Index(name = "cadastro_id_index", columnList = "cadastro_id"))
 public class CadastroModel implements Serializable {
 
     private static final long SERIALVERSIONUID = 1L;
@@ -20,7 +21,7 @@ public class CadastroModel implements Serializable {
     @Column(name = "cadastro_id")
     @Getter
     @Setter
-    private UID idCadastro;
+    private UUID idCadastro;
 
     @Column(name = "nome", columnDefinition = "VARCHAR(100)", nullable = false)
     @Getter
