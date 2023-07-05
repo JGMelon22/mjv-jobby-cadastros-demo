@@ -22,7 +22,7 @@ public class CadastroController {
     @PostMapping("/cadastros")
     public ResponseEntity<CadastroModel> saveCadastro(@RequestBody @Valid CadastroRecordDto cadastroRecordDto) {
         CadastroModel cadastroModel = new CadastroModel();
-        BeanUtils.copyProperties(cadastroRecordDto, cadastroModel);
+        BeanUtils.copyProperties(cadastroRecordDto, cadastroModel); // Converte dto para model
         return ResponseEntity.status(HttpStatus.CREATED).body(cadastroRepository.save(cadastroModel));
     }
 }
