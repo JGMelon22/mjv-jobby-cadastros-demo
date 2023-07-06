@@ -36,7 +36,7 @@ public class CadastroModel implements Serializable {
 
     private LocalDate dataNascimento;
 
-    @Column(name = "sexo", columnDefinition = "CHAR(1)", nullable = false)
+    @Column(name = "sexo", columnDefinition = "CHAR(9)", nullable = false)
     @Enumerated(EnumType.STRING)
 
     private SexoEnum sexo;
