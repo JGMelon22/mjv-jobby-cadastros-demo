@@ -3,9 +3,15 @@ package com.mjv.jobbycadastrosdemo.services;
 import com.mjv.jobbycadastrosdemo.models.CadastroModel;
 import com.mjv.jobbycadastrosdemo.repositories.CadastroRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.connector.Response;
+import org.hibernate.annotations.NotFound;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -14,5 +20,10 @@ public class CadastroService {
 
     public List<CadastroModel> listAll() {
         return cadastroRepository.findAll();
+    }
+
+    public CadastroModel findById(UUID id) {
+       return cadastroRepository.findById(id)
+               .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cadastro não encontrado!"));
     }
 }

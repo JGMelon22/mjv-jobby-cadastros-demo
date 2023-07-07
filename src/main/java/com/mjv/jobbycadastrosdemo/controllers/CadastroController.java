@@ -10,12 +10,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,4 +38,21 @@ public class CadastroController {
     public ResponseEntity<List<CadastroModel>> getAllProducts() {
         return ResponseEntity.status(HttpStatus.OK).body(cadastroService.listAll());
     }
+
+    @GetMapping("/cadastros/{id}")
+    public ResponseEntity<Object> getOneCadastro(@PathVariable(value = "id") UUID id) {
+        Optional<CadastroModel> cadastro0 = cadastroRepository.findById(id);
+        if (cadastro0.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cadastro não encontrado!");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(cadastro0.get());
+    }
+
+    // Usando service pattern
+    // @GetMapping("/cadastros/{id}")
+    // public ResponseEntity<Object> getOneCadastro(@PathVariable(value = "id") UUID id) {
+    //     return new ResponseEntity<>(cadastroService.findById(id), HttpStatus.OK);
+    // }
+
 }
