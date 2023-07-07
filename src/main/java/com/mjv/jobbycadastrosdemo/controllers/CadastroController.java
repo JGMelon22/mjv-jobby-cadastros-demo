@@ -49,6 +49,19 @@ public class CadastroController {
         return ResponseEntity.status(HttpStatus.OK).body(cadastro0.get());
     }
 
+    @PutMapping("/cadastros/{id}")
+    public ResponseEntity<Object> updateProduct(@PathVariable(value = "id") UUID id,
+                                                @RequestBody @Valid CadastroRecordDto cadastroRecordDto) {
+        Optional<CadastroModel> cadastro0 = cadastroRepository.findById(id);
+        if (cadastro0.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cadastro não encontrado!");
+        }
+
+        var cadastroModel = cadastro0.get();
+        BeanUtils.copyProperties(cadastroRecordDto, cadastroModel);
+        return ResponseEntity.status(HttpStatus.OK).body(cadastroRepository.save(cadastroModel));
+    }
+
     // Usando service pattern
     // @GetMapping("/cadastros/{id}")
     // public ResponseEntity<Object> getOneCadastro(@PathVariable(value = "id") UUID id) {

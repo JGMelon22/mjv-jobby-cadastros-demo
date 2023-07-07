@@ -1,13 +1,16 @@
 package com.mjv.jobbycadastrosdemo.services;
 
+import com.mjv.jobbycadastrosdemo.dtos.CadastroRecordDto;
 import com.mjv.jobbycadastrosdemo.models.CadastroModel;
 import com.mjv.jobbycadastrosdemo.repositories.CadastroRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.connector.Response;
 import org.hibernate.annotations.NotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -23,7 +26,9 @@ public class CadastroService {
     }
 
     public CadastroModel findById(UUID id) {
-       return cadastroRepository.findById(id)
-               .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cadastro não encontrado!"));
+        return cadastroRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cadastro não encontrado!"));
     }
+
+    // TODO - post, edit and delete
 }
