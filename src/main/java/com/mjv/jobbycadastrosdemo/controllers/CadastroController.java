@@ -62,6 +62,18 @@ public class CadastroController {
         return ResponseEntity.status(HttpStatus.OK).body(cadastroRepository.save(cadastroModel));
     }
 
+    @DeleteMapping("/cadastros/{id}")
+    public ResponseEntity<Object> deleteCadastro(@PathVariable(value = "id") UUID id) {
+        Optional<CadastroModel> cadastro0 = cadastroRepository.findById(id);
+        if (cadastro0.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cadastro não encontrado!");
+        }
+
+        cadastroRepository.delete(cadastro0.get());
+        return ResponseEntity.status(HttpStatus.OK).body("Cadastro deletado com exito!");
+    }
+
+
     // Usando service pattern
     // @GetMapping("/cadastros/{id}")
     // public ResponseEntity<Object> getOneCadastro(@PathVariable(value = "id") UUID id) {
