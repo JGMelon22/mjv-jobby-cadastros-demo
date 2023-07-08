@@ -73,6 +73,12 @@ public class CadastroController {
         return ResponseEntity.status(HttpStatus.OK).body("Cadastro deletado com exito!");
     }
 
+    // Usando service pattern
+    // @DeleteMapping("/cadastros/{id}")
+    // public ResponseEntity<Void> deleteCadastro(@PathVariable UUID id) {
+    //     cadastroService.delete(id);
+    //     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    // }
 
     // Usando service pattern
     // @GetMapping("/cadastros/{id}")

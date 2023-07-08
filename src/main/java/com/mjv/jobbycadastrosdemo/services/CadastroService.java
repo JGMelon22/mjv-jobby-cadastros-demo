@@ -1,5 +1,6 @@
 package com.mjv.jobbycadastrosdemo.services;
 
+import com.mjv.jobbycadastrosdemo.dtos.CadastroPutRecordDto;
 import com.mjv.jobbycadastrosdemo.dtos.CadastroRecordDto;
 import com.mjv.jobbycadastrosdemo.models.CadastroModel;
 import com.mjv.jobbycadastrosdemo.repositories.CadastroRepository;
@@ -31,4 +32,7 @@ public class CadastroService {
     }
 
     // TODO - post, edit and delete
+    public void delete(UUID id) {
+        cadastroRepository.delete(findById(id));
+    }
 }
