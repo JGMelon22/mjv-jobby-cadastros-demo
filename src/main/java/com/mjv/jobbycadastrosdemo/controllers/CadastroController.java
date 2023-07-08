@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173/")// Libera o uso do CORS parao front-end em React
+@CrossOrigin(origins = "http://localhost:5173/")// Libera o uso do CORS para o front-end em React
 @RequiredArgsConstructor
 public class CadastroController {
 

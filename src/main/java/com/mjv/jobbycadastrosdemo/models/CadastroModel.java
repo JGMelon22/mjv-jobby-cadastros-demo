@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Entity // 1h4min
+@Entity
 @Getter
 @Setter
 @Table(name = "cadastros", indexes = @Index(name = "cadastro_id_index", columnList = "cadastro_id"))
