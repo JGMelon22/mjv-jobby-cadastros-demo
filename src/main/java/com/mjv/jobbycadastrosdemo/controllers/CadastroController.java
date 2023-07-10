@@ -1,5 +1,6 @@
 package com.mjv.jobbycadastrosdemo.controllers;
 
+import com.mjv.jobbycadastrosdemo.dtos.CadastroPutRecordDto;
 import com.mjv.jobbycadastrosdemo.dtos.CadastroRecordDto;
 import com.mjv.jobbycadastrosdemo.models.CadastroModel;
 import com.mjv.jobbycadastrosdemo.repositories.CadastroRepository;
@@ -17,7 +18,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173/")// Libera o uso do CORS para o front-end em React
 @RequiredArgsConstructor
 public class CadastroController {
 
@@ -52,14 +52,14 @@ public class CadastroController {
 
     @PutMapping("/cadastros/{id}")
     public ResponseEntity<Object> updateProduct(@PathVariable(value = "id") UUID id,
-                                                @RequestBody @Valid CadastroRecordDto cadastroRecordDto) {
+                                                @RequestBody @Valid CadastroPutRecordDto cadastroPutRecordDto) {
         Optional<CadastroModel> cadastro0 = cadastroRepository.findById(id);
         if (cadastro0.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cadastro não encontrado!");
         }
 
         var cadastroModel = cadastro0.get();
-        BeanUtils.copyProperties(cadastroRecordDto, cadastroModel);
+        BeanUtils.copyProperties(cadastroPutRecordDto, cadastroModel);
         return ResponseEntity.status(HttpStatus.OK).body(cadastroRepository.save(cadastroModel));
     }
 

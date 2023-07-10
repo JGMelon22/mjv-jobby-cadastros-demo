@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public record CadastroPutRecordDto(@NotBlank UUID idCadastro, @NotBlank String nome, @NotBlank String cpf,
+public record CadastroPutRecordDto(@NotNull UUID idCadastro, @NotBlank String nome, @NotBlank String cpf,
                                    @NotNull LocalDate dataNascimento,
                                    @NotNull SexoEnum sexo, @NotBlank String logradouro,
                                    @NotNull Integer numero, @NotBlank String bairro, @NotBlank String complemento,
