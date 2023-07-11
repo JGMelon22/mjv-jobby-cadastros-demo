@@ -1,7 +1,7 @@
-package com.mjv.jobbycadastrosdemo.services;
+package com.mjv.jobbycadastrosdemo.domain.service;
 
-import com.mjv.jobbycadastrosdemo.models.CadastroModel;
-import com.mjv.jobbycadastrosdemo.repositories.CadastroRepository;
+import com.mjv.jobbycadastrosdemo.domain.repository.CadastroRepository;
+import com.mjv.jobbycadastrosdemo.domain.model.CadastroModel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

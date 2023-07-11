@@ -1,6 +1,6 @@
-package com.mjv.jobbycadastrosdemo.repositories;
+package com.mjv.jobbycadastrosdemo.domain.repository;
 
-import com.mjv.jobbycadastrosdemo.models.CadastroModel;
+import com.mjv.jobbycadastrosdemo.domain.model.CadastroModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

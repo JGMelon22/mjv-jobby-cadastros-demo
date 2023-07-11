@@ -1,10 +1,10 @@
-package com.mjv.jobbycadastrosdemo.controllers;
+package com.mjv.jobbycadastrosdemo.api.controller;
 
-import com.mjv.jobbycadastrosdemo.dtos.CadastroPutRecordDto;
-import com.mjv.jobbycadastrosdemo.dtos.CadastroRecordDto;
-import com.mjv.jobbycadastrosdemo.models.CadastroModel;
-import com.mjv.jobbycadastrosdemo.repositories.CadastroRepository;
-import com.mjv.jobbycadastrosdemo.services.CadastroService;
+import com.mjv.jobbycadastrosdemo.api.dto.CadastroPutRecordDto;
+import com.mjv.jobbycadastrosdemo.api.dto.CadastroRecordDto;
+import com.mjv.jobbycadastrosdemo.domain.model.CadastroModel;
+import com.mjv.jobbycadastrosdemo.domain.repository.CadastroRepository;
+import com.mjv.jobbycadastrosdemo.domain.service.CadastroService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;

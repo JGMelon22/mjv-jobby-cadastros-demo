@@ -1,6 +1,6 @@
-package com.mjv.jobbycadastrosdemo.models;
+package com.mjv.jobbycadastrosdemo.domain.model;
 
-import com.mjv.jobbycadastrosdemo.enums.SexoEnum;
+import com.mjv.jobbycadastrosdemo.domain.model.enums.SexoEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
