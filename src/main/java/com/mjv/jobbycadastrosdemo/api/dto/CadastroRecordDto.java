@@ -1,6 +1,6 @@
-package com.mjv.jobbycadastrosdemo.dtos;
+package com.mjv.jobbycadastrosdemo.api.dto;
 
-import com.mjv.jobbycadastrosdemo.enums.SexoEnum;
+import com.mjv.jobbycadastrosdemo.domain.model.enums.SexoEnum;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
