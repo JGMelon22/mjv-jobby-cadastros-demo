@@ -1,6 +1,5 @@
 package com.mjv.jobbycadastrosdemo.controllers;
 
-import com.mjv.jobbycadastrosdemo.dtos.CadastroPutRecordDto;
 import com.mjv.jobbycadastrosdemo.dtos.CadastroRecordDto;
 import com.mjv.jobbycadastrosdemo.models.CadastroModel;
 import com.mjv.jobbycadastrosdemo.repositories.CadastroRepository;
@@ -18,73 +17,52 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequiredArgsConstructor
+@RequestMapping("/api")
 public class CadastroController {
-
-    @Autowired
-    CadastroRepository cadastroRepository;
 
     // DI da Service Pattern
     private final CadastroService cadastroService;
 
-    @PostMapping("/cadastros")
-    public ResponseEntity<CadastroModel> saveCadastro(@RequestBody @Valid CadastroRecordDto cadastroRecordDto) {
-        CadastroModel cadastroModel = new CadastroModel();
-        BeanUtils.copyProperties(cadastroRecordDto, cadastroModel); // Converte dto para model
-        return ResponseEntity.status(HttpStatus.CREATED).body(cadastroRepository.save(cadastroModel));
+    public CadastroController(CadastroService cadastroService) {
+        this.cadastroService = cadastroService;
     }
 
-    // Aqui já utilizei a service pattern do Java
     @GetMapping("/cadastros")
-    public ResponseEntity<List<CadastroModel>> getAllProducts() {
-        return ResponseEntity.status(HttpStatus.OK).body(cadastroService.listAll());
+    public ResponseEntity<List<CadastroModel>> getAllCadastros() {
+        List<CadastroModel> cadastroModels = cadastroService.listAll();
+        return cadastroModels.isEmpty()
+                ? ResponseEntity.status(HttpStatus.NO_CONTENT).build()
+                : ResponseEntity.status(HttpStatus.OK).body(cadastroModels);
     }
 
     @GetMapping("/cadastros/{id}")
-    public ResponseEntity<Object> getOneCadastro(@PathVariable(value = "id") UUID id) {
-        Optional<CadastroModel> cadastro0 = cadastroRepository.findById(id);
-        if (cadastro0.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cadastro não encontrado!");
-        }
+    public ResponseEntity<Object> getOneCadastroById(@PathVariable(value = "id") UUID id) {
+        CadastroModel cadastroModel = cadastroService.findById(id);
+        return cadastroModel != null
+                ? ResponseEntity.status(HttpStatus.OK).body(cadastroModel)
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
 
-        return ResponseEntity.status(HttpStatus.OK).body(cadastro0.get());
+    @PostMapping("/cadastros")
+    public ResponseEntity<CadastroModel> saveCadastro(@RequestBody @Valid CadastroRecordDto cadastroRecordDto) {
+        cadastroService.save(cadastroRecordDto);
+        return ResponseEntity.status((HttpStatus.CREATED)).build();
     }
 
     @PutMapping("/cadastros/{id}")
-    public ResponseEntity<Object> updateProduct(@PathVariable(value = "id") UUID id,
-                                                @RequestBody @Valid CadastroPutRecordDto cadastroPutRecordDto) {
-        Optional<CadastroModel> cadastro0 = cadastroRepository.findById(id);
-        if (cadastro0.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cadastro não encontrado!");
-        }
-
-        var cadastroModel = cadastro0.get();
-        BeanUtils.copyProperties(cadastroPutRecordDto, cadastroModel);
-        return ResponseEntity.status(HttpStatus.OK).body(cadastroRepository.save(cadastroModel));
+    public ResponseEntity<Object> updateCadastro(@PathVariable(value = "id") UUID id,
+                                                 @RequestBody @Valid CadastroRecordDto cadastroRecordDto) {
+        CadastroModel cadastroModel = cadastroService.findById(id);
+        return cadastroModel != null
+                ? ResponseEntity.status(HttpStatus.OK).body(cadastroService.update(id, cadastroRecordDto))
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @DeleteMapping("/cadastros/{id}")
     public ResponseEntity<Object> deleteCadastro(@PathVariable(value = "id") UUID id) {
-        Optional<CadastroModel> cadastro0 = cadastroRepository.findById(id);
-        if (cadastro0.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cadastro não encontrado!");
-        }
-
-        cadastroRepository.delete(cadastro0.get());
+        if (id == null || id.toString() == "")
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        cadastroService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body("Cadastro deletado com exito!");
     }
-
-    // Usando service pattern
-    // @DeleteMapping("/cadastros/{id}")
-    // public ResponseEntity<Void> deleteCadastro(@PathVariable UUID id) {
-    //     cadastroService.delete(id);
-    //     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    // }
-
-    // Usando service pattern
-    // @GetMapping("/cadastros/{id}")
-    // public ResponseEntity<Object> getOneCadastro(@PathVariable(value = "id") UUID id) {
-    //     return new ResponseEntity<>(cadastroService.findById(id), HttpStatus.OK);
-    // }
-
 }
